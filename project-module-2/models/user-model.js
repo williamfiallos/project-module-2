@@ -5,6 +5,8 @@ const userSchema = new Schema({
   email: String,
   password: String,
   fullName: String,
+  
+  // CHECK .env FILE TO HAVE GOOGLE AND/OR SLACK API'S!!!
   // slack:
   // slackID: String,
   // google:

@@ -1,3 +1,6 @@
+// Step 1: Beginning project I downloaded Irongenerate to download all necessary packages needed for this project.
+
+
 require('dotenv').config();
 
 const bodyParser   = require('body-parser');
