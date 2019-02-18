@@ -8,6 +8,26 @@
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
+  <nav>
+
+    {{#if currentUser}}
+      <a href="/private">Private Page</a>
+      <a href="/rooms/add">Create a room</a> {{!-- CHANGE THIS TO ADD A SHOE! --}}
+      <a href="/rooms">Room list</a> {{!-- CHANGE THIS TO VIEW SHOES! --}}
+
+      <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+      </form>
+    {{else}}
+      <a href="/signup">Create an Account</a>
+      <a href="/login">Login</a>
+      <a href="/slack-login">Login with Slack</a>
+      <a href="/google-login">Login with Google</a>
+    {{/if}}
+      <a href="/public">Public Page</a>
+
+
+  </nav>
 
   {{{body}}}
 
