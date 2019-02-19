@@ -11,9 +11,9 @@
   <nav>
 
     {{#if currentUser}}
-      <a href="/private">Private Page</a>
-      <a href="/rooms/add">Create a room</a> {{!-- CHANGE THIS TO ADD A SHOE! --}}
-      <a href="/rooms">Room list</a> {{!-- CHANGE THIS TO VIEW SHOES! --}}
+      <a href="/private">My Profile Page</a><br>
+      <a href="/rooms/add">Add a Shoe</a><br> {{!-- check href folder and change to "shoe" --}}
+      <a href="/shoes">View All Shoes</a> 
 
       <form action="/logout" method="post">
         <button type="submit">Logout</button>

@@ -1,0 +1,19 @@
+<h1>Create an Account</h1>
+
+
+<form action="/signup" method="POST">
+
+  <label for="">Full Name:</label>
+  <input type="text" name="fullName" > {{!-- "required" requires user to fill the field --}}
+  <br>
+  <label for="">Email:</label>
+  <input type="text" name="email" id="" >
+  <br>
+  <label for="">Password:</label>
+  <input type="password" name="password" id="" > 
+  <br>
+  <button type="submit">Create Account</button>
+
+</form>
+
+{{> flashMessage }}

@@ -12,6 +12,15 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 
+const session = require('express-session');
+
+// import passport docs from config folder
+const passportSetup = require('./config/passport/passport-setup');
+
+
+// REGISTER THE PARTIALS (ANYWHERE IN THE FILE)
+hbs.registerPartials(__dirname + '/views/partials');
+
 
 mongoose
   .connect('mongodb://localhost/project-module-2', {useNewUrlParser: true})
@@ -52,10 +61,36 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
+///////// ASK QUESTION ABOUT SESSION!!! WHERE IS THE SECRET FROM? //////////
+// handle session here:
+// app.js
+app.use(session({
+  secret: "our-passport-local-strategy-app",
+  resave: true,
+  saveUninitialized: true
+}));
 
+// moved passport code from here and pasted it to 'passport-setup.js' under config/passport/ 
+// into a function and call the function below AFTER session
+// MUST come after the session:
+passportSetup(app);
 
 const index = require('./routes/index');
 app.use('/', index);
 
+// Step 3: require auth-routes so the app knows they exist
+app.use('/', require('./routes/auth-routes'));
+app.use('/', require('./routes/user-routes'));
+// app.use('/', require('./routes/shoe-routes'));
+
 
 module.exports = app;
+
+
+// package.json "dependencies": {
+//   "cloudinary": "^1.13.2",
+//   "multer": "^1.4.1",
+//   "multer-storage-cloudinary": "^2.2.1",
+//   "passport-google-oauth": "^1.0.0",
+//   "passport-slack": "0.0.7",
+// },
