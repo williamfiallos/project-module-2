@@ -3,7 +3,7 @@ const passport = require('passport');
 // change User's folder with ../ since I moved the file to another folder
 const User = require('../../models/user-model');
 
-// require connect-flash for flash messages
+// install npm package/require connect-flash for flash messages
 const flash = require('connect-flash');
 // then go to line 39-42 to activate flash
 
@@ -30,6 +30,24 @@ passport.deserializeUser((userId, cb) => {
   })
   .catch( err => cb(err));
 })
+
+///////////// From the Passport Lesson: ////////
+// Next up, we have to configure the middleware. 
+// First of all we have to configure the express-session, 
+// indicating which is the secret key it will use to be generated:
+
+// // app.js
+// app.use(session({
+//   secret: "our-passport-local-strategy-app",
+//   resave: true,
+//   saveUninitialized: true
+// }));
+// Then, we have to initialize passport and passport session, both of them like a middleware:
+
+// // was in 'app.js' but is now moved below into a function into 'passport-setup.js'
+// app.use(passport.initialize());
+// app.use(passport.session());
+/////////////////////////////// check below: 
 
 function passportBasicSetup(anyName){
     // passport super power is here:
