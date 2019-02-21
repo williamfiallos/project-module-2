@@ -5,6 +5,7 @@ const userSchema = new Schema({
   email: String,
   password: String,
   fullName: String,
+  // followers: { type: Schema.Types.ObjectId, ref: 'User ID' } // <= ask how to reference 'User ID' to push followers
   
   // CHECK .env FILE TO HAVE GOOGLE AND/OR SLACK API'S!!!
   // slack:

@@ -11,7 +11,7 @@ cloudinary.config({
 
 var storage = cloudinaryStorage({
  cloudinary: cloudinary,
- folder: 'rooms-gallery', // The name of the folder in cloudinary
+ folder: 'sneaker-gallery', // The name of the folder in cloudinary
  allowedFormats: ['jpg', 'png'],
  // params: { resource_type: 'raw' }, => this is case you want to upload other types of files, not just images
  filename: function (res, file, cb) {

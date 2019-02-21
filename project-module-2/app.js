@@ -71,8 +71,7 @@ app.use(session({
 }));
 
 // moved passport code from here and pasted it to 'passport-setup.js' under config/passport/ 
-// into a function and call the function below AFTER session
-// MUST come after the session:
+// into a function and call the function below AFTER session. It MUST come after the session:
 passportSetup(app);
 
 const index = require('./routes/index');
@@ -81,16 +80,13 @@ app.use('/', index);
 // Step 3: require auth-routes so the app knows they exist
 app.use('/', require('./routes/auth-routes'));
 app.use('/', require('./routes/user-routes'));
-// app.use('/', require('./routes/shoe-routes'));
+app.use('/', require('./routes/sneaker-routes'));
 
 
 module.exports = app;
 
 
 // package.json "dependencies": {
-//   "cloudinary": "^1.13.2",
-//   "multer": "^1.4.1",
-//   "multer-storage-cloudinary": "^2.2.1",
 //   "passport-google-oauth": "^1.0.0",
 //   "passport-slack": "0.0.7",
 // },

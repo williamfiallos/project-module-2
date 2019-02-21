@@ -1,0 +1,24 @@
+{{!-- if in the form you want to upload any kind of files (images, music, etc.) you need 
+to add enctype="multipart/form-data" --}}
+<h1>Edit the Sneaker</h1>
+<form action="/sneakers/{{sneaker._id}}/update" method="POST" enctype="multipart/form-data">
+  
+  <label for="">Brand:</label>
+  <input type="text" name="brand" id="" value="{{sneaker.brand}}">
+
+  <label for="">Designer:</label>
+  <input type="text" name="designer" id="" value="{{sneaker.designer}}">
+
+  <label for="">Release Date:</label>
+  <input type="date" name="date" id="" value="{{sneaker.date}}">
+
+  <label for="">Description:</label>
+  <textarea name="description" id="" cols="30" rows="10">{{sneaker.description}}</textarea>
+  
+  <img src="{{sneaker.imageURL}}" width="200" alt="">
+  <label for="">Upload image</label>
+  <input type="file" name="imageURL" id="">
+
+  <button type="submit">Save changes</button>
+
+</form>

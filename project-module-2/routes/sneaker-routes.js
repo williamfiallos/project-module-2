@@ -1,54 +1,58 @@
 const express = require('express');
 const router  = express.Router();
 
-const Room = require('../models/room-model');
+const Sneaker = require('../models/sneaker-model');
 const User = require('../models/user-model');
 
 const fileUploader = require('../config/upload-setup/cloudinary');
 
-router.get('/rooms/add', isLoggedIn, (req, res, next) => {
-  res.render('room-pages/addRoom');
+router.get('/sneakers/add', isLoggedIn, (req, res, next) => {
+  res.render('sneaker-pages/addSneaker');
 });
 // above, once it makes it to if isLoggedIn, then it runs the below function, and then jumps back to render the site addressed
 
 
                     // <input type="file" name="imageURL" id="">
 
-router.post('/rooms/create-room', fileUploader.single('imageURL'), (req, res, next) => {
+router.post('/sneakers/leak-sneaker', fileUploader.single('imageURL'), (req, res, next) => {
   // console.log('body: ', req.body);
   // console.log('- - - - -');
   // console.log('file: ', req.file);
-  const { name, description } = req.body;
-  Room.create({
-    name,
+  const { brand, designer, date, price, description } = req.body;
+  Sneaker.create({
+    brand,
+    designer,
+    date,
+    price,
     description,
     imageURL: req.file.secure_url,
-    owner: req.user._id
+    // owner: req.user._id, // <= error in server, cannot read ._id
+    // comment: [], // <= ask how to reference to 'comment model'
   })
-  .then( newRoom => {
-    // console.log('room created: ', newRoom);
-    res.redirect('/rooms');
+  .then( newSneaker => {
+    // console.log('sneaker created: ', newSneaker);
+    res.redirect('/sneakers');
   })
   .catch( err => next(err) )
 })
 
-router.get('/rooms', (req, res, next) => {
-  Room.find().populate('owner') // .populate allows us to find a user other than by ._id, in this case 'owner'
-  .then(roomsFromDB => {
-    roomsFromDB.forEach(oneRoom => {
-      // each room has the 'owner' property which is user's id
-      // if owner (the id of the user who created a room) is the same as the currently logged in user
+router.get('/sneakers', (req, res, next) => {
+  Sneaker.find().populate('owner') // .populate allows us to find a user other than by ._id, in this case 'owner'
+  .then(sneakersFromDB => {
+    sneakersFromDB.forEach(oneSneaker => {
+      // each sneaker has the 'owner' property which is user's id
+      // if owner (the id of the user who created a sneaker) is the same as the currently logged in user
       // then create additional property in the oneRoom object (maybe isOwner is not the best one but ... 🤯)
       // and that will help you to allow that currently logged in user can edit and delete only the rooms they created
       
       // if there's a user in a session:
       if(req.user){
-        if(oneRoom.owner.equals(req.user._id)){
-          oneRoom.isOwner = true;
+        if(oneSneaker.owner.equals(req.user._id)){
+          oneSneaker.isOwner = true;
         }
       }
     })
-    res.render('room-pages/room-list', { roomsFromDB })
+    res.render('sneaker-pages/sneaker-list', { sneakersFromDB })
   })
 })
 

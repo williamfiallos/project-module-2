@@ -1,0 +1,31 @@
+
+{{!-- NOTE: if in the "form" you want to upload any kind of files (images, music, etc.) you need 
+to add enctype="multipart/form-data" --}}
+
+<form action="/sneakers/leak-sneaker" method="POST" enctype="multipart/form-data">
+  
+  <label for="">Brand:</label>
+  <input type="text" name="brand" id="">
+  <br>
+  <label for="">Designer:</label>
+  <input type="text" name="designer" id="">
+  <br>
+  <label for="">Release Date:</label>
+  <input type="date" name="date" id="">
+  <br>
+  <label for="">Price: $</label>
+  <input type="number" name="price" id="">
+  <br>
+  <label for="">Description:</label>
+  <textarea name="description" id="" cols="30" rows="10"></textarea>
+  <br>
+  <label for="">Upload Sneaker Image:</label>
+  <input type="file" name="imageURL" id="">
+  <br>
+  <label for="">Sneaker Leaker:</label>
+  <input type="text" name="owner" id="">
+  <br>
+  <br>
+  <button type="submit">Leak</button>
+
+</form>

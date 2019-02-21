@@ -1,0 +1,15 @@
+<h1>{{sneaker.name}}</h1>
+<h2>Leaked by: {{sneaker.owner.fullName}} </h2>
+<p>Description: {{sneaker.description}}</p>
+{{#if sneaker.imageURL}}
+<img src="{{sneaker.imageURL}}" alt="" width="200">
+{{else}}
+<p>The sneaker doesn't have an image.</p>
+{{/if}}
+<br>
+<a href="/sneakers/{{sneaker._id}}/edit">Edit the sneaker</a>
+<form action="/sneakers/{{sneaker._id}}" method="post">
+  <button type="submit">Delete this sneaker</button>
+</form>
+<br>
+<a href="/sneakers">Go back</a>
