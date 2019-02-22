@@ -1,7 +1,7 @@
 <ul>
   {{#each sneakersFromDB}}
   <li><a href="/sneakers/{{this._id}}"> {{this.name}} </a> </li>
-    <p>- posted by {{ this.owner.fullName }}</p>
+    <p>- leaked by {{ this.owner.fullName }}</p>
     <img src="{{this.imageURL}}" alt="" width="300">
 
     {{#if this.isOwner}}

@@ -18,15 +18,16 @@ router.post('/sneakers/leak-sneaker', fileUploader.single('imageURL'), (req, res
   // console.log('body: ', req.body);
   // console.log('- - - - -');
   // console.log('file: ', req.file);
-  const { brand, designer, date, price, description } = req.body;
+  const { name, brand, designer, date, price, description } = req.body;
   Sneaker.create({
+    name,
     brand,
     designer,
     date,
     price,
     description,
     imageURL: req.file.secure_url,
-    // owner: req.user._id, // <= error in server, cannot read ._id
+    owner: req.user._id, // <= error in server, cannot read ._id
     // comment: [], // <= ask how to reference to 'comment model'
   })
   .then( newSneaker => {
