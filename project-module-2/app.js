@@ -81,6 +81,7 @@ app.use('/', index);
 app.use('/', require('./routes/auth-routes'));
 app.use('/', require('./routes/user-routes'));
 app.use('/', require('./routes/sneaker-routes'));
+app.use('/', require('./routes/review-routes'));
 
 
 module.exports = app;

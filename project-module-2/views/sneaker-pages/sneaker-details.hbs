@@ -14,15 +14,71 @@ sneaker to reference. Read lines 13-16 to see where 'sneaker' came from. --}}
 <br>
 
 {{!-- the following code came from sneaker-list.hbs; 
-the 'sneaker' from 'sneaker.isOwner' is from sneaker-route.js line 135 where
+the 'sneaker' from 'sneaker.isOwner' is from sneaker-route.js where
 the variable is 'theSneaker' but it is now being called 'sneaker' in this file (ES6 features). 
 The 'isOwner' is a boolean from sneaker-route if there is a user in session --}}
 
 {{#if sneaker.isOwner}}
-  <form action="/sneakers/{{sneaker._id}}/delete" method="POST">
-    <button type="submit">Delete</button>
+  <button id="toggle-button">Update Sneaker Details</button>
+  <form action="/sneakers/{{sneakers._id}}/update" method="post" id="edit-form" hidden="true" enctype="multipart/form-data">
+    {{!-- enctype needs to be here if there is anything with type="file" in the form --}}
+    <label for="">Name:</label>
+    <input type="text" name="name" id="" value="{{sneaker.name}}">
+    <br>
+    <label for="">Brand:</label>
+    <input type="text" name="brand" id="" value="{{sneaker.brand}}">
+    <br>
+    <label for="">Designer:</label>
+    <input type="text" name="designer" id="" value="{{sneaker.designer}}">
+    <br>
+    <label for="">Release Date:</label>
+    <input type="date" name="date" id="" value="{{sneaker.date}}">
+    <br>
+    <label for="">Price: $</label>
+    <input type="number" name="price" id="" value="{{sneaker.price}}">
+    <br>
+    <label for="">Description:</label>
+    <textarea name="description" id="" cols="30" rows="10">{{sneaker.description}}</textarea>
+    <br>
+    <img src="{{sneaker.imageURL}}" width="200" alt=""><br>
+    <label for="">Upload image</label>
+    <input type="file" name="imageURL" id=""> {{!-- type="file" => when adding images or any other files --}}
+    <br>
+    <br>
+    <button type="submit">Save Changes</button>
   </form>
-  <a href="/sneakers/{{sneaker._id}}/edit">Edit the sneaker</a>
+
+  {{!-- <a href="/sneakers/{{sneaker._id}}/edit">Edit the Sneaker</a> 
+  // no longer need the above link since I have the update form above in the same page.
+  // I no longer need the editSneakers.hbs file either --}}
   <br>
+  <form action="/sneakers/{{sneaker._id}}/delete" method="POST">
+    <button type="submit">Delete Leak</button>
+  </form>
 {{/if}}
-<br>
+
+<hr>
+
+{{!-- USER CANNOT LEAVE REVIEWS ON THEIR OWN PROPERTIES --}}
+{{!-- this means that only if the user IS NOT the owner, this form will be shown --}}
+{{#unless sneaker.isOwner}}
+  <h2>Add a Comment About the Sneaker:</h2>
+  <form action="/sneakers/{{sneaker._id}}/add-review" method="POST">
+    <textarea name="comment" id="" cols="50" rows="10"></textarea>
+    <button type="submit">Add Comment</button>
+  </form>
+{{/unless}}
+
+{{!-- if there are reviews, display them, otherwise, don't display them --}}
+{{#if sneaker.reviews}}
+  <h3>Comments:</h3>
+  {{#each sneaker.reviews}}
+    <p><b>{{ this.user.fullName }} commented: </b> {{ this.comment }} </p>
+    {{#if this.canBeChanged}}
+      <a href="/reviews/{{this._id}}"> Edit Comment </a>
+      <form action="/reviews/{{this._id}}" method="POST">
+        <button type="submit"> Delete Comment </button>
+      </form>
+    {{/if}}
+  {{/each}}
+{{/if}}

@@ -10,7 +10,8 @@ const sneakerSchema = new Schema({
   description: { type: String },
   imageURL: { type: String },
   owner: { type: Schema.Types.ObjectId, ref: 'User' },
-  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }] // comment: [], // <= ask how to reference to 'comment model'
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }] // is an array 
+  // comment: [], // <= ask how to reference to 'comment model'
 })
 
 const Sneaker = mongoose.model('Sneaker', sneakerSchema);

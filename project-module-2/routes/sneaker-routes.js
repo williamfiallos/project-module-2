@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 const Sneaker = require('../models/sneaker-model');
-const User = require('../models/user-model');
+// const User = require('../models/user-model');
 
 const fileUploader = require('../config/upload-setup/cloudinary');
 
@@ -11,14 +11,14 @@ router.get('/sneakers/add', isLoggedIn, (req, res, next) => {
 });
 // above, once it makes it to if isLoggedIn, then it runs the below function, and then jumps back to render the site addressed
 
-
+// POST route to create a sneaker => has the image uploading
                     // <input type="file" name="imageURL" id="">
 
 router.post('/sneakers/leak-sneaker', fileUploader.single('imageURL'), (req, res, next) => {
   // console.log('body: ', req.body);
   // console.log('- - - - -');
   // console.log('file: ', req.file);
-  const { name, brand, designer, date, price, description } = req.body;
+  const { name, brand, designer, date, price, description } = req.body; // <= this is ES6 destructuring
   Sneaker.create({
     name,
     brand,
@@ -27,8 +27,7 @@ router.post('/sneakers/leak-sneaker', fileUploader.single('imageURL'), (req, res
     price,
     description,
     imageURL: req.file.secure_url,
-    owner: req.user._id, // <= error in server, cannot read ._id
-    // comment: [], // <= ask how to reference to 'comment model'
+    owner: req.user._id,
   })
   .then( newSneaker => {
     // console.log('sneaker created: ', newSneaker);
@@ -36,8 +35,18 @@ router.post('/sneakers/leak-sneaker', fileUploader.single('imageURL'), (req, res
   })
   .catch( err => next(err) )
 })
-
+// Show all the sneakers: 
 router.get('/sneakers', (req, res, next) => {
+  // in the Sneaker model, property 'owner' is referencing the User model 
+  // so in the database collection 'sneakers' one instance will have MongoDB id saved into this property ----
+  // _id:ObjectId("5c5f464c8f4c3ae21c6dfba9")                                                                |
+  // name:"Air Jordan 3"                                                                                     |
+  // description:"The first of many for MJ and Tinker Hatfield"                                              |
+  // imageUrl:"https://res.cloudinary.com/djw7xkbip/image/upload/v1549747137/sneakers-ga..."                 |
+  // owner:ObjectId("5c5f461e8f4c3ae21c6dfba8") <====== !!! <------------------------------------------------
+  //   |
+  //   ----------------------
+  //                         |
   Sneaker.find().populate('owner') // .populate allows us to find a user other than by ._id, in this case 'owner'
   .then(sneakersFromDB => {
     sneakersFromDB.forEach(oneSneaker => {
@@ -57,14 +66,42 @@ router.get('/sneakers', (req, res, next) => {
   })
 })
 
+/////////////////////////// SNEAKER DETAILS PAGE ROUTE ////////////////////////
 
-function isLoggedIn(req, res, next){
-  if(req.user){
-    next();
-  } else {
-    res.redirect('/login');
-  }
-}
+// get the details of a specific sneaker from the DB
+// http://localhost:3000/sneakers/5c70a2e87e2ff325a320936c <== this 'id' will change dynamically when we click on each sneaker
+// router.get('/sneakers/:sneakerId') => NOTE: '/sneakers' is pre-filled and ':sneakerId' is just a placeholder, can be any word
+router.get('/sneakers/:sneakerId', isLoggedIn, (req, res, next) => {
+  // here we need populate owner field - .populate('owner') => we are saying: give me all the details related to the 'owner' field in the sneaker 
+  // (there's only owner id there so what it does is-finds the rest of information related to that owner based on the id)
+  Sneaker.findById(req.params.sneakerId).populate('owner')
+  // we need to populate 'reviews' field and the 'user' field that's inside the reviews
+  .populate({path: 'reviews', populate: {path: 'user'}})
+  .then(theSneaker => { 
+      // if there's a user in a session:
+      if(req.user){
+        if(theSneaker.owner.equals(req.user._id)){
+          theSneaker.isOwner = true;
+        }
+      }
+      // go through all the reviews and check which ones are created by currently logged in user
+      Promise.all(theSneaker.reviews.filter(singleReview => {                             //  |
+        if(singleReview.user._id.equals(req.user._id)) {  // <--------------------------------|
+        // and if that's the case, create new property in the each review that satisfies criteria
+        // and use this property when looping through the array of reviews in hbs file to make sure
+        // that logged in user can only edit and delete the reviews they created
+          singleReview.canBeChanged = true;
+        }
+        return singleReview;
+      }))
+      .then(() => {
+        res.render('sneaker-pages/sneaker-details', { sneaker: theSneaker });
+      })
+      .catch( err => next(err) );
+  })
+  .catch( err => console.log("Error while getting the details of a sneaker: ", err) );
+})
+
 ////////////////////////////// EDIT ROOMS ROUTE ////////////////////////////////
 // - - - - - - - - - - - - - - - - - GET - - - - - - - - - - - - - - - - - - -//
 // http://localhost:3000/sneakers/5c70a2e87e2ff325a320936c/edit
@@ -81,14 +118,24 @@ router.get('/sneakers/:id/edit', (req, res, next) => {
 router.post('/sneakers/:id/update',fileUploader.single('imageURL'), (req, res, next) => {
   // console.log("Updates are: ", req.body, req.file); <=req.file is for the image, also note line 91
   
-  // note: below are the fields I want to be updated
+  const { name, brand, designer, date, description } = req.body;
   const updatedSneaker = {
-    name: req.body.name,
-    brand: req.body.brand,
-    designer: req.body.designer,
-    date: req.body.date,
-    description: req.body.description,
+    name,
+    brand,
+    designer,
+    date,
+    description
   };
+  // used ES6 destructuring above, otherwise we would have to do 
+  // this -> const name = req.body.name; and const description = req.body.description (like below):
+  // const updatedSneaker = {
+  //   name: req.body.name,
+  //   brand: req.body.brand,
+  //   designer: req.body.designer,
+  //   date: req.body.date,
+  //   description: req.body.description,
+  // };
+
   // if user uploads a new image:
   if(req.file){
     updatedSneaker.imageURL = req.file.secure_url
@@ -114,27 +161,47 @@ router.post('/sneakers/:id/delete', (req, res, next) => {
   .catch( err => console.log("Error while deleting the sneaker: ", err))
 })
 
-/////////////////////////// SNEAKER DETAILS PAGE ROUTE ////////////////////////
+// by this function we make sure the route and the functionality is 
+// available only if we have user in the session
+function isLoggedIn(req, res, next){
+  if(req.user){
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
 
-// get the details of a sneaker from the DB
-// http://localhost:3000/sneakers/5c70a2e87e2ff325a320936c <== this 'id' will change dynamically when we click on each sneaker
-// router.get('/sneakers/:sneakerId') => NOTE: '/sneakers' is pre-filled and ':sneakerId' is just a placeholder, can be any word
-router.get('/sneakers/:sneakerId', isLoggedIn, (req, res, next) => {
-  const theSneakerId = req.params.sneakerId;
-  //.populate('owner') => we are saying: give me all the details related to the 'owner' field in the sneaker 
-  // (there's only owner id there so what it does is-finds the rest of information related to that owner based on the id)
-  Sneaker.findById(theSneakerId).populate('owner')
-  .then(theSneaker => { 
-          // if there's a user in a session:
-          if(req.user){
-            if(theSneaker.owner.equals(req.user._id)){
-              theSneaker.isOwner = true;
-            }
-          }
-    // console.log("The requested Sneaker is: ", theSneaker);
-    res.render('sneaker-pages/sneaker-details', { sneaker: theSneaker });
-  })
-  .catch( err => console.log("Error while getting the details of a sneaker: ", err) );
-})
 
 module.exports = router;
+
+// // get the details of a specific room
+// router.get('/rooms/:roomId',isLoggedIn, (req, res, next) => {
+
+//   // here we need to populate owner field but as well
+//   Room.findById(req.params.roomId).populate('owner')
+//   // 🎯🎯🎯 we need to populate 'reviews' field and the 'user' field that's inside the reviews 🎯🎯🎯
+//   .populate({path: 'reviews', populate: {path:'user'}})
+//   .then(foundRoom => {
+
+//     // console.log(' == = = = == = == = ', foundRoom);
+//     if(foundRoom.owner.equals(req.user._id)){
+//       foundRoom.isOwner = true;
+//     }
+    
+//     // go through all the reviews and check which ones are created by currently logged in user
+//     Promise.all(foundRoom.reviews.filter(singleReview => {                      //          |
+//       if(singleReview.user._id.equals(req.user._id)){   // <--------------------------------|
+//         // and if that's the case, create new property in the each review that satisfies criteria
+//         // and use this property when looping through the array of reviews in hbs file to make sure
+//         // that logged in user can only edit and delete the reviews they created 
+//         singleReview.canBeChanged = true;
+//       }
+//       return singleReview;
+//     }))
+//     .then(() => {
+//       res.render('room-pages/room-details', { room: foundRoom } )
+//     })
+//     .catch( err => next(err) )
+//   })
+//   .catch( err => next(err) )
+// })

@@ -3,17 +3,13 @@
   {{#each sneakersFromDB}}
   <li><a href="/sneakers/{{this._id}}"> {{this.name}} </a> </li>
     <img src="{{this.imageURL}}" alt="" width="300">
-    <p>Login to view the Lost Soles release details</p>
-
-    {{!-- Below code is sent to sneaker-details.hbs so that only the user/leaker can edit/delete post --}}
-    {{!-- {{#if this.isOwner}}
+    {{#if this.isOwner}}
+      <h3>Release Date: {{this.date}} </h3>
       <form action="/sneakers/{{this._id}}/delete" method="POST">
         <button type="submit">Delete</button>
       </form>
-      <a href="/sneakers/{{this._id}}/edit">Edit the sneaker</a>
-      <br>
-    {{/if}} --}}
-      {{!-- <a href="/sneakers">Back to sneakers list</a> --}}
-      
+    {{else}}
+      <p>Login to view the Lost Soles release details</p>
+    {{/if}}
   {{/each}}
 </ul>
