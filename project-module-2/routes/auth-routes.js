@@ -79,7 +79,7 @@ router.post('/login', passport.authenticate('local', {
 
 router.post('/logout', (req, res, next) => {
   req.logout(); // <== logout method comes from passport and takes care of the destroying the session
-    res.redirect('/login')
+    res.redirect('/') // <= redirect to '/login' or '/home' or another part of the site
 })
 
 

@@ -65,71 +65,76 @@ function isLoggedIn(req, res, next){
     res.redirect('/login');
   }
 }
-// http://localhost:3000/rooms/5c5f491110b6c02119f8b475/edit
-//////////// EDIT ROOMS ---Get & Post--- ////////////
-router.get('/rooms/:id/edit', (req, res, next) => {
-  Room.findById(req.params.id)
-  .then( foundRoom => {
-    // console.log(foundRoom)
-    res.render('room-pages/editRoom', { room: foundRoom })
+////////////////////////////// EDIT ROOMS ROUTE ////////////////////////////////
+// - - - - - - - - - - - - - - - - - GET - - - - - - - - - - - - - - - - - - -//
+// http://localhost:3000/sneakers/5c70a2e87e2ff325a320936c/edit
+router.get('/sneakers/:id/edit', (req, res, next) => {
+  Sneaker.findById(req.params.id)
+  .then( foundSneaker => {
+    // console.log(foundSneaker)
+    res.render('sneaker-pages/editSneaker', { sneaker: foundSneaker }) // <= Note: 'foundSneaker' new name becomes 'sneaker'
 
   })
-  .catch(err => console.log('Error while getting the details for book edit: ', err));
+  .catch(err => console.log('Error while getting the details for sneaker edit: ', err));
 })
-
-
-router.post('/rooms/:id/update',fileUploader.single('imageURL'), (req, res, next) => {
-  // console.log("Updates are: ", req.body, req.file);
-
-  const updatedRoom = {
+// - - - - - - - - - - - - - - - - - POST - - - - - - - - - - - - - - - - - -//
+router.post('/sneakers/:id/update',fileUploader.single('imageURL'), (req, res, next) => {
+  // console.log("Updates are: ", req.body, req.file); <=req.file is for the image, also note line 91
+  
+  // note: below are the fields I want to be updated
+  const updatedSneaker = {
     name: req.body.name,
-    description: req.body.description
+    brand: req.body.brand,
+    designer: req.body.designer,
+    date: req.body.date,
+    description: req.body.description,
   };
-  // if user uplods a new image:
+  // if user uploads a new image:
   if(req.file){
-    updatedRoom.imageURL = req.file.secure_url
+    updatedSneaker.imageURL = req.file.secure_url
   } 
 
-  Room.findByIdAndUpdate(req.params.id, updatedRoom)
-  .then( theUpdRoom => {
-    // console.log("Is this updated: ", theUpdRoom);
-    // res.redirect(`/books/${updatedBook._id}`);
-    res.redirect('/rooms');
+  Sneaker.findByIdAndUpdate(req.params.id, updatedSneaker)
+  .then( theUpdatedSneaker => {
+    // console.log("Is this updated: ", theUpdatedSneaker);
+    // res.redirect(`/sneakers/${updatedSneaker._id}`);
+    res.redirect('/sneakers');
   } )
   .catch(err => console.log('Error while saving the updates in the db: ', err));
 })
 
+//////////////////////////// SNEAKER DELETE ROUTE //////////////////////////////
 
-
-// delete route:
-// <form action="/rooms/{{this._id}}/delete" method="POST">
-router.post('/rooms/:id/delete', (req, res, next) => {
-  Room.findByIdAndRemove(req.params.id)
+// <form action="/sneakers/{{sneaker._id}}/delete" method="POST">
+router.post('/sneakers/:id/delete', (req, res, next) => {
+  Sneaker.findByIdAndRemove(req.params.id)
   .then(() => {
-    res.redirect('/rooms')
+    res.redirect('/sneakers')
   })
-  .catch( err => console.log("Error while deleting a room: ", err))
+  .catch( err => console.log("Error while deleting the sneaker: ", err))
 })
 
-// get the details of a room from the DB
-// http://localhost:3000/rooms/5c52542abbd9c887b58e24a7 <== this 'id' will change dynamically when we click on each room
-// router.get('/rooms/:roomId') => '/rooms' is pre-filled and ':roomId' is just a placeholder, can be any word
-router.get('/rooms/:roomId', isLoggedIn, (req, res, next) => {
-  const theRoomId = req.params.roomId;
-  //.populate('owner') => we are saying: give me all the details related to the 'owner' field in the room 
+/////////////////////////// SNEAKER DETAILS PAGE ROUTE ////////////////////////
+
+// get the details of a sneaker from the DB
+// http://localhost:3000/sneakers/5c70a2e87e2ff325a320936c <== this 'id' will change dynamically when we click on each sneaker
+// router.get('/sneakers/:sneakerId') => NOTE: '/sneakers' is pre-filled and ':sneakerId' is just a placeholder, can be any word
+router.get('/sneakers/:sneakerId', isLoggedIn, (req, res, next) => {
+  const theSneakerId = req.params.sneakerId;
+  //.populate('owner') => we are saying: give me all the details related to the 'owner' field in the sneaker 
   // (there's only owner id there so what it does is-finds the rest of information related to that owner based on the id)
-  Room.findById(theRoomId).populate('owner')
-  .then(theRoom => { 
-          // // if there's a user in a session:
-          // if(req.user){
-          //   if(oneRoom.owner.equals(req.user._id)){
-          //     oneRoom.isOwner = true;
-          //   }
-          // }
-    // console.log("The requested room is: ", theRoom);
-    res.render('room-pages/room-details', { room: theRoom });
+  Sneaker.findById(theSneakerId).populate('owner')
+  .then(theSneaker => { 
+          // if there's a user in a session:
+          if(req.user){
+            if(theSneaker.owner.equals(req.user._id)){
+              theSneaker.isOwner = true;
+            }
+          }
+    // console.log("The requested Sneaker is: ", theSneaker);
+    res.render('sneaker-pages/sneaker-details', { sneaker: theSneaker });
   })
-  .catch( err => console.log("Error while getting the details of a room: ", err) );
+  .catch( err => console.log("Error while getting the details of a sneaker: ", err) );
 })
 
 module.exports = router;

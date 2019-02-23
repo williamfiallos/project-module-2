@@ -1,7 +1,7 @@
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const multer = require('multer');
-
+// Multer is a node.js middleware for handling multipart/form-data , which is primarily used for uploading files.
 
 cloudinary.config({
   cloud_name: process.env.cloudName,

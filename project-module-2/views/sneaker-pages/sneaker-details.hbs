@@ -1,15 +1,28 @@
+<a href="/sneakers">Go Back to All Sneaker Leaks</a>
+
+{{!-- Note: here it uses 'sneaker.' and not 'this.' since this is already specifying which
+sneaker to reference. Read lines 13-16 to see where 'sneaker' came from. --}}
 <h1>{{sneaker.name}}</h1>
-<h2>Leaked by: {{sneaker.owner.fullName}} </h2>
-<p>Description: {{sneaker.description}}</p>
+<p>{{sneaker.description}}</p>
 {{#if sneaker.imageURL}}
 <img src="{{sneaker.imageURL}}" alt="" width="200">
 {{else}}
 <p>The sneaker doesn't have an image.</p>
 {{/if}}
+<h3>Sneaker Release Date: {{sneaker.date}} </h3>
+<h3>Sneaker Leaker: {{sneaker.owner.fullName}} </h3>
 <br>
-<a href="/sneakers/{{sneaker._id}}/edit">Edit the sneaker</a>
-<form action="/sneakers/{{sneaker._id}}" method="post">
-  <button type="submit">Delete this sneaker</button>
-</form>
+
+{{!-- the following code came from sneaker-list.hbs; 
+the 'sneaker' from 'sneaker.isOwner' is from sneaker-route.js line 135 where
+the variable is 'theSneaker' but it is now being called 'sneaker' in this file (ES6 features). 
+The 'isOwner' is a boolean from sneaker-route if there is a user in session --}}
+
+{{#if sneaker.isOwner}}
+  <form action="/sneakers/{{sneaker._id}}/delete" method="POST">
+    <button type="submit">Delete</button>
+  </form>
+  <a href="/sneakers/{{sneaker._id}}/edit">Edit the sneaker</a>
+  <br>
+{{/if}}
 <br>
-<a href="/sneakers">Go back</a>

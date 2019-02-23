@@ -1,16 +1,18 @@
 <ul>
+  {{!-- Note: 'this.' is calling the sneakers from the DB --}}
   {{#each sneakersFromDB}}
   <li><a href="/sneakers/{{this._id}}"> {{this.name}} </a> </li>
-    <p>- leaked by {{ this.owner.fullName }}</p>
     <img src="{{this.imageURL}}" alt="" width="300">
+    <p>Release Date: {{ this.date }}</p>
 
-    {{#if this.isOwner}}
+    {{!-- Below code is sent to sneaker-details.hbs so that only the user/leaker can edit/delete post --}}
+    {{!-- {{#if this.isOwner}}
       <form action="/sneakers/{{this._id}}/delete" method="POST">
         <button type="submit">Delete</button>
       </form>
       <a href="/sneakers/{{this._id}}/edit">Edit the sneaker</a>
       <br>
-    {{/if}}
+    {{/if}} --}}
       {{!-- <a href="/sneakers">Back to sneakers list</a> --}}
       
   {{/each}}

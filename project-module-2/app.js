@@ -1,5 +1,5 @@
 // Step 1: Beginning project I downloaded Irongenerate to download all necessary packages needed for this project.
-
+// Note: all variables should all be at the top; middleware in the middle; routes all the way to the bottom for a reason.
 
 require('dotenv').config();
 

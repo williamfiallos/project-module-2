@@ -1,3 +1,9 @@
+{{!-- flash is a part of sessions to send a message. 
+flash is a special area of the session used for storing messages. 
+Messages are written to the flash and cleared after being displayed to the user. 
+The flash is typically used in combination with redirects, 
+ensuring that the message is available to the next page that is to be rendered. --}}
+
 {{#if messages}}
   {{#each messages}}
     {{ this }}
