@@ -43,8 +43,8 @@ router.get('/sneakers', (req, res, next) => {
     sneakersFromDB.forEach(oneSneaker => {
       // each sneaker has the 'owner' property which is user's id
       // if owner (the id of the user who created a sneaker) is the same as the currently logged in user
-      // then create additional property in the oneRoom object (maybe isOwner is not the best one but ... 🤯)
-      // and that will help you to allow that currently logged in user can edit and delete only the rooms they created
+      // then create additional property in the 'oneSneaker' object (maybe 'isOwner' is not the best one but ... 🤯)
+      // and that will help you to allow that currently logged in user can edit and delete only the sneakers they created
       
       // if there's a user in a session:
       if(req.user){

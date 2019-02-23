@@ -3,7 +3,7 @@
   {{#each sneakersFromDB}}
   <li><a href="/sneakers/{{this._id}}"> {{this.name}} </a> </li>
     <img src="{{this.imageURL}}" alt="" width="300">
-    <p>Release Date: {{ this.date }}</p>
+    <p>Login to view the Lost Soles release details</p>
 
     {{!-- Below code is sent to sneaker-details.hbs so that only the user/leaker can edit/delete post --}}
     {{!-- {{#if this.isOwner}}
