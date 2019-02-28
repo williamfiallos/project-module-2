@@ -38,8 +38,8 @@ router.post('/sneakers/leak-sneaker', fileUploader.single('imageURL'), (req, res
     owner: req.user._id,
   })
   .then( newSneaker => {
-    console.log('sneaker created: ', newSneaker);
-    res.redirect('/sneakers');
+    // console.log('sneaker created: ', newSneaker);
+    res.redirect('/sneakers/:sneakerId');
   })
   .catch( err => next(err) )
 })
@@ -94,8 +94,8 @@ router.get('/sneakers/:sneakerId', isLoggedIn, (req, res, next) => {
           theSneaker.isOwner = true;
         }
       }
-      console.log('the sneaker.date', theSneaker.date);
-      
+      // console.log('the sneaker date', theSneaker.date);
+
       // go through all the reviews and check which ones are created by currently logged in user
       Promise.all(theSneaker.reviews.filter(singleReview => {                             //  |
         if(singleReview.user._id.equals(req.user._id)) {  // <--------------------------------|
