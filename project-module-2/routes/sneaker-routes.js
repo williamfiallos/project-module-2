@@ -31,7 +31,7 @@ router.post('/sneakers/leak-sneaker', fileUploader.single('imageURL'), (req, res
     name,
     brand,
     designer,
-    date: theDate.join('-'), // <= let above to add 1 to the date to be properly recorded
+    date: theDate.join('-'), // <= let in line 22 to add 1 to the date to be properly recorded
     price,
     description,
     imageURL: req.file.secure_url,
@@ -94,6 +94,8 @@ router.get('/sneakers/:sneakerId', isLoggedIn, (req, res, next) => {
           theSneaker.isOwner = true;
         }
       }
+      console.log('the sneaker.date', theSneaker.date);
+      
       // go through all the reviews and check which ones are created by currently logged in user
       Promise.all(theSneaker.reviews.filter(singleReview => {                             //  |
         if(singleReview.user._id.equals(req.user._id)) {  // <--------------------------------|
@@ -112,7 +114,7 @@ router.get('/sneakers/:sneakerId', isLoggedIn, (req, res, next) => {
   .catch( err => console.log("Error while getting the details of a sneaker: ", err) );
 })
 
-////////////////////////////// EDIT ROOMS ROUTE ////////////////////////////////
+////////////////////////////// EDIT SNEAKERS ROUTE ////////////////////////////////
 // - - - - - - - - - - - - - - - - - GET - - - - - - - - - - - - - - - - - - -//
 // http://localhost:3000/sneakers/5c70a2e87e2ff325a320936c/edit
 router.get('/sneakers/:id/edit', (req, res, next) => {
@@ -127,12 +129,19 @@ router.get('/sneakers/:id/edit', (req, res, next) => {
 // - - - - - - - - - - - - - - - - - POST - - - - - - - - - - - - - - - - - -//
 router.post('/sneakers/:id/update',fileUploader.single('imageURL'), (req, res, next) => {
   // console.log("Updates are: ", req.body, req.file); <=req.file is for the image, also note line 91
-  
+  // let theDate = req.body.date.split('-')
+  //   newDate = (parseInt(theDate[2]) + 1)
+  //   theDate.pop()
+  //   theDate.push(newDate.toString())
+  //   // theDate.join('-')
+  //   // console.log(">>>>>>", theDate.join('-'), newDate.toString())
+
   const { name, brand, designer, date, description } = req.body;
   const updatedSneaker = {
     name,
     brand,
     designer,
+    // date: theDate.join('-'), // <= let in line 130 to add 1 to the date to be properly recorded
     date,
     description
   };
@@ -154,8 +163,8 @@ router.post('/sneakers/:id/update',fileUploader.single('imageURL'), (req, res, n
   Sneaker.findByIdAndUpdate(req.params.id, updatedSneaker)
   .then( theUpdatedSneaker => {
     // console.log("Is this updated: ", theUpdatedSneaker);
-    // res.redirect(`/sneakers/${updatedSneaker._id}`);
-    res.redirect('/sneakers');
+    res.redirect(`/sneakers/${theUpdatedSneaker._id}`);
+    // res.redirect('/sneakers/theUpdatedSneaker._id'); <=wrong way of writing the above
   } )
   .catch(err => console.log('Error while saving the updates in the db: ', err));
 })

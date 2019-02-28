@@ -20,7 +20,7 @@ The 'isOwner' is a boolean from sneaker-route if there is a user in session --}}
 
 {{#if sneaker.isOwner}}
   <button id="toggle-button">Update Sneaker Details</button>
-  <form action="/sneakers/{{sneakers._id}}/update" method="post" id="edit-form" hidden="true" enctype="multipart/form-data">
+  <form action="/sneakers/{{sneaker._id}}/update" method="post" id="edit-form" hidden="true" enctype="multipart/form-data">
     {{!-- enctype needs to be here if there is anything with type="file" in the form --}}
     <label for="">Name:</label>
     <input type="text" name="name" id="" value="{{sneaker.name}}">
