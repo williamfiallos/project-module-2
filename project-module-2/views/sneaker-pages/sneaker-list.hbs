@@ -1,15 +1,20 @@
 <ul>
   {{!-- Note: 'this.' is calling the sneakers from the DB --}}
+  
   {{#each sneakersFromDB}}
   <li><a href="/sneakers/{{this._id}}"> {{this.name}} </a> </li>
     <img src="{{this.imageURL}}" alt="" width="300">
+    {{#if ../currentUser}}
+      <h3><b>Release Date: {{this.date}} </b></h3>
+    {{else}}
+      <p><b>You must be logged in to view the release dates!!!</b></p>
+    {{/if}}
     {{#if this.isOwner}}
-      <h3>Release Date: {{this.date}} </h3>
       <form action="/sneakers/{{this._id}}/delete" method="POST">
         <button type="submit">Delete</button>
       </form>
     {{else}}
-      <p>Login to view the Lost Soles release details</p>
+      <p><b>Login to view the Lost Soles release details</b></p>
     {{/if}}
-  {{/each}}
+  {{/each}}  
 </ul>

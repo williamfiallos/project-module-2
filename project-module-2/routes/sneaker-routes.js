@@ -18,19 +18,27 @@ router.post('/sneakers/leak-sneaker', fileUploader.single('imageURL'), (req, res
   // console.log('body: ', req.body);
   // console.log('- - - - -');
   // console.log('file: ', req.file);
-  const { name, brand, designer, date, price, description } = req.body; // <= this is ES6 destructuring
+  // console.log("=====", req.body.date);
+  let theDate = req.body.date.split('-')
+    newDate = (parseInt(theDate[2]) + 1)
+    theDate.pop()
+    theDate.push(newDate.toString())
+    // theDate.join('-')
+    // console.log(">>>>>>", theDate.join('-'), newDate.toString())
+  
+  const { name, brand, designer, price, description } = req.body; // <= this is ES6 destructuring
   Sneaker.create({
     name,
     brand,
     designer,
-    date,
+    date: theDate.join('-'), // <= let above to add 1 to the date to be properly recorded
     price,
     description,
     imageURL: req.file.secure_url,
     owner: req.user._id,
   })
   .then( newSneaker => {
-    // console.log('sneaker created: ', newSneaker);
+    console.log('sneaker created: ', newSneaker);
     res.redirect('/sneakers');
   })
   .catch( err => next(err) )
@@ -61,6 +69,8 @@ router.get('/sneakers', (req, res, next) => {
           oneSneaker.isOwner = true;
         }
       }
+      // console.log("----------------------", sneakersFromDB);
+      
     })
     res.render('sneaker-pages/sneaker-list', { sneakersFromDB })
   })
