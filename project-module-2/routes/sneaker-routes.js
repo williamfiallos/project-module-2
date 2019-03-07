@@ -39,7 +39,7 @@ router.post('/sneakers/leak-sneaker', fileUploader.single('imageURL'), (req, res
   })
   .then( newSneaker => {
     // console.log('sneaker created: ', newSneaker);
-    res.redirect('/sneakers/:sneakerId');
+    res.redirect(`/sneakers/${newSneaker._id}`);
   })
   .catch( err => next(err) )
 })
