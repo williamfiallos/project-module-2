@@ -1,3 +1,20 @@
 <h1>{{ currentUser.fullName }} - Lost Soles Sneaker Leaker</h1>
 
-<h3>At Lost Soles, our job is to leak images of the latest sneaker before they go out to market. Take a look at my latest leaks at Lost Soles!</h3>
+<ul>
+  {{!-- Note: 'this.' is calling the sneakers from the DB --}}
+  
+  {{#each sneakersFromDB}}
+  <li><a href="/sneakers/{{this._id}}"> {{this.name}} </a> </li>
+    <img src="{{this.imageURL}}" alt="" width="300">
+    {{#if ../currentUser}}
+      <h3><b>Release Date: {{this.date}} </b></h3>
+    {{/if}}
+    
+    {{!-- if isOwner then show Delete button, if not Owner then don't show it --}}
+    {{#if this.isOwner}}
+      <form action="/sneakers/{{this._id}}/delete" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+    {{/if}}
+  {{/each}}  
+</ul>
