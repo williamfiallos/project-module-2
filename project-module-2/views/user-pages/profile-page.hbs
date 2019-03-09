@@ -4,8 +4,8 @@
 I also have to create a variable called Sneaker and require sneaker-model to be able to find the Sneaker in sneakersFromDB --}}
 <div class="panel-container">
   {{#each sneakersFromDB}}
-    {{!-- <div class="panel"> --}}
-      <div class="card" style="width: 18rem;">
+    <div class="panel">
+      <div class="card" style="width: 19rem;">
         <img class="card-img-top" src="{{this.imageURL}}" alt="Card image cap">
         <div class="card-body">
           <h5><a href="/sneakers/{{this._id}}" class="card-title"> {{this.name}} </a></h5>
@@ -16,6 +16,6 @@ I also have to create a variable called Sneaker and require sneaker-model to be 
           </form>
         </div>
       </div>
-      {{!-- <br> --}}
+    </div>
   {{/each}}
 </div>
