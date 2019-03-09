@@ -4,8 +4,8 @@
   {{!-- Note: 'this.' is calling the sneakers from the DB --}}
   
   {{#each sneakersFromDB}}
-  <li><a href="/sneakers/{{this._id}}"> {{this.name}} </a> </li>
-    <img src="{{this.imageURL}}" alt="" width="300">
+  <li><a href="/sneakers/{{sneakers._id}}"> {{sneakers.name}} </a> </li>
+    <img src="{{sneakers.imageURL}}" alt="" width="300">
     {{#if ../currentUser}}
       <h3><b>Release Date: {{this.date}} </b></h3>
     {{/if}}
