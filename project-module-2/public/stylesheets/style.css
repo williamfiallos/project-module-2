@@ -5,4 +5,25 @@ body {
 a {
   color: #00B7FF; }
 
+.panel-container {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+  align-items: center; }
+
+.panel {
+  width: 28vw;
+  height: 39vh;
+  margin-bottom: 35px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid lightgray;
+  border-radius: 50px;
+  padding: 3px 0; }
+
+.panel > h3 {
+  text-align: center; }
+
 /*# sourceMappingURL=style.css.map */

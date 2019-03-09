@@ -10,33 +10,32 @@
 </head>
 <body>
   <nav>
+    <div class="">
+      {{#if currentUser}}
+        <a href="/private">My Lost Soles Page</a><br>
+        <a href="/sneakers/add">Add a Sneaker Leak</a><br> {{!-- check href folder and change to "sneaker" --}}
+        <a href="/sneakers">View All Sneaker Leaks</a> 
 
-    {{#if currentUser}}
-      <a href="/private">My Lost Soles Page</a><br>
-      <a href="/sneakers/add">Add a Sneaker Leak</a><br> {{!-- check href folder and change to "sneaker" --}}
-      <a href="/sneakers">View All Sneaker Leaks</a> 
-
-      <form action="/logout" method="post">
-        <button type="submit">Logout</button>
-      </form>
-    {{else}}
-      <a href="/login">Login</a>
-      <br>
-      <a href="/signup">Create an Account</a>
-      <a href="/sneakers">View All Sneaker Leaks</a> 
-      
-      {{!-- <a href="/slack-login">Login with Slack</a> --}}
-      {{!-- <a href="/google-login">Login with Google</a> --}}
-    {{/if}}
-      <a href="/public">Public Page</a>
-
-
+        <form action="/logout" method="post">
+          <button type="submit">Logout</button>
+        </form>
+      {{else}}
+        <a href="/login">Login</a>
+        <br>
+        <a href="/signup">Create an Account</a>
+        <a href="/sneakers">View All Sneaker Leaks</a> 
+        
+        {{!-- <a href="/slack-login">Login with Slack</a> --}}
+        {{!-- <a href="/google-login">Login with Google</a> --}}
+      {{/if}}
+        <a href="/public">Public Page</a>
+    </div>
   </nav>
 
   {{{body}}}
   
   {{!-- INSERT BOOTSTRAP SCRIPTS HERE --}}
-
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="/javascripts/script.js"></script>
 </body>
 </html>
