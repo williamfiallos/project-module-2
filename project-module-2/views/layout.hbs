@@ -6,35 +6,55 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{title}}</title>
   {{!-- INSERT BOOTSTRAP LINK HERE --}}
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
-  <nav>
-    <div class="">
-      {{#if currentUser}}
-        <a href="/private">My Lost Soles Page</a><br>
-        <a href="/sneakers/add">Add a Sneaker Leak</a><br> {{!-- check href folder and change to "sneaker" --}}
-        <a href="/sneakers">View All Sneaker Leaks</a> 
 
-        <form action="/logout" method="post">
-          <button type="submit">Logout</button>
-        </form>
-      {{else}}
-        <a href="/login">Login</a>
-        <br>
-        <a href="/signup">Create an Account</a>
-        <a href="/sneakers">View All Sneaker Leaks</a> 
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <ul class="nav nav-pills">
+      {{#if currentUser}} 
         
-        {{!-- <a href="/slack-login">Login with Slack</a> --}}
-        {{!-- <a href="/google-login">Login with Google</a> --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Lost Soles</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item"><form action="/logout" method="post"><button type="submit">Logout</button></form></a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sneakers</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/private">My Sneaker Leaks</a>
+            <a class="dropdown-item" href="/sneakers">View All Sneaker Leaks</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/sneakers/add">Leak a Sneaker</a>
+          </div>
+        </li>
+      {{else}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/public" role="button" aria-haspopup="true" aria-expanded="false">Lost Soles</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/public">Home</a>
+            <a class="dropdown-item" href="/login">Log In</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/signup">Create Account</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/sneakers">Sneakers</a>
+        </li>
+      </ul>
       {{/if}}
-        <a href="/public">Public Page</a>
-    </div>
-  </nav>
+
+    {{!-- <a href="/slack-login">Login with Slack</a> --}}
+    {{!-- <a href="/google-login">Login with Google</a> --}}
+    </nav>
 
   {{{body}}}
   
   {{!-- INSERT BOOTSTRAP SCRIPTS HERE --}}
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="/javascripts/script.js"></script>
 </body>

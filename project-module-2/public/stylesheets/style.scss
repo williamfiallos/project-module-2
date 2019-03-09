@@ -1,17 +1,17 @@
 body {
-  padding: 50px;
+  padding: 20px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
-}
+// a {
+//   color: #00B7FF;
+// }
 
 .panel-container {
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;
-  align-items: center;
+  // align-items: center;
 }
 
 .panel {
@@ -23,10 +23,15 @@ a {
   flex-direction: column;
   align-items: center;
   border: 1px solid lightgray;
-  border-radius: 50px;
+  border-radius: 20px;
   padding: 3px 0;
 }
 
 .panel > h3 {
     text-align: center;
+    font-size: 16px;
 }
+
+// .ul {
+//   margin-top: 30px;
+// }
