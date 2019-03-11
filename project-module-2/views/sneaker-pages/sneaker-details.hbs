@@ -3,18 +3,22 @@
 sneaker to reference. Read lines 13-16 to see where 'sneaker' came from. --}}
 <h1>{{sneaker.name}}</h1>
 <h5>Release Date: {{sneaker.date}} </h5>
-<div class="container-fluid">
-  <div class="card" style="width: 19rem;">
-    {{#if sneaker.imageURL}}
-    <img src="{{sneaker.imageURL}}" alt="sneaker image" width="300">
-    {{else}}
-    <p>The sneaker doesn't have an image.</p>
-    {{/if}}
+<div class="">
+  <div class="container" style="width: 22rem;">
+    <div>
+      {{#if sneaker.imageURL}}
+      <img src="{{sneaker.imageURL}}" alt="sneaker image" width="300">
+      {{else}}
+      <p>The sneaker doesn't have an image.</p>
+      {{/if}}
+    </div>
   </div>
   <div class="container">
-    <p>{{sneaker.description}}</p>
+    <div>
+      <p>{{sneaker.description}}</p>
+      <p>Sneaker Leaker: {{sneaker.owner.fullName}} </p>
+    </div>
   </div>
-  <p>Sneaker Leaker: {{sneaker.owner.fullName}} </p>
 </div>
 
 

@@ -13,4 +13,10 @@ body {
   align-items: center;
   background-color: lightgrey; }
 
+.container > div {
+  border: 1px solid black;
+  border-radius: 10px;
+  background: white;
+  padding: 1em; }
+
 /*# sourceMappingURL=style.css.map */
