@@ -1,17 +1,22 @@
-<a href="/sneakers">Go Back to All Sneaker Leaks</a>
 
 {{!-- Note: here it uses 'sneaker.' and not 'this.' since this is already specifying which
 sneaker to reference. Read lines 13-16 to see where 'sneaker' came from. --}}
 <h1>{{sneaker.name}}</h1>
-<p>{{sneaker.description}}</p>
-{{#if sneaker.imageURL}}
-<img src="{{sneaker.imageURL}}" alt="" width="200">
-{{else}}
-<p>The sneaker doesn't have an image.</p>
-{{/if}}
-<h3>Release Date: {{sneaker.date}} </h3>
-<h3>Sneaker Leaker: {{sneaker.owner.fullName}} </h3>
-<br>
+<h5>Release Date: {{sneaker.date}} </h5>
+<div class="container-fluid">
+  <div class="card" style="width: 19rem;">
+    {{#if sneaker.imageURL}}
+    <img src="{{sneaker.imageURL}}" alt="sneaker image" width="300">
+    {{else}}
+    <p>The sneaker doesn't have an image.</p>
+    {{/if}}
+  </div>
+  <div class="container">
+    <p>{{sneaker.description}}</p>
+  </div>
+  <p>Sneaker Leaker: {{sneaker.owner.fullName}} </p>
+</div>
+
 
 {{!-- the following code came from sneaker-list.hbs; 
 the 'sneaker' from 'sneaker.isOwner' is from sneaker-route.js where
@@ -53,9 +58,11 @@ The 'isOwner' is a boolean from sneaker-route if there is a user in session --}}
   // I no longer need the editSneakers.hbs file either --}}
   <br>
   <form action="/sneakers/{{sneaker._id}}/delete" method="POST">
-    <button type="submit">Delete Leak</button>
+    <button type="submit">Delete</button>
   </form>
 {{/if}}
+
+<a href="/sneakers">Go Back to All Sneakers</a><br>
 
 <hr>
 
