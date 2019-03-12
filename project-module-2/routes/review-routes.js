@@ -32,6 +32,23 @@ router.post('/sneakers/:sneakerId/add-review', (req, res, next) => {
   .catch(err => next(err));
 })
 
+////////////////////// UPDATE REVIEW //////////////////////
+router.post('/reviews/:id/update', (req, res, next) => {
+  // console.log(req.body);
+
+  Review.findByIdAndUpdate(req.params.id, req.body)
+  .then( theUpdatedReview => {
+    // console.log("This is updated: ", theUpdatedReview);
+    res.redirect(`/reviews/${theUpdatedReview._id}`);
+
+
+
+    
+    // res.redirect('/reviews/theUpdatedReview._id'); <=wrong way of writing the above
+  } )
+  .catch(err => console.log('Error while saving the updates in the db: ', err));
+})
+
 /////////////////////////////// DELETE A REVIEW //////////////////////////////
 // since reviews are saved inside the reviews collection and as array of id's in the sneakers' reviews,
 // make sure when deleted, the review disappears from the reviews collection and from

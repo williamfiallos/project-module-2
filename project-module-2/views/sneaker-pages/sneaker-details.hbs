@@ -4,7 +4,7 @@ sneaker to reference. Read lines 13-16 to see where 'sneaker' came from. --}}
 <h1>{{sneaker.name}}</h1>
 <h5>Release Date: {{sneaker.date}} </h5>
 <div class="">
-  <div class="container" style="width: 22rem;">
+  <div class="container">
     <div>
       {{#if sneaker.imageURL}}
       <img src="{{sneaker.imageURL}}" alt="sneaker image" width="300">
@@ -12,13 +12,13 @@ sneaker to reference. Read lines 13-16 to see where 'sneaker' came from. --}}
       <p>The sneaker doesn't have an image.</p>
       {{/if}}
     </div>
-  </div>
-  <div class="container">
+  {{!-- <div class="container"> --}}
     <div>
       <p>{{sneaker.description}}</p>
       <p>Sneaker Leaker: {{sneaker.owner.fullName}} </p>
     </div>
   </div>
+  {{!-- </div> --}}
 </div>
 
 
@@ -29,7 +29,7 @@ The 'isOwner' is a boolean from sneaker-route if there is a user in session --}}
 
 {{#if sneaker.isOwner}}
   <button id="toggle-button">Update Sneaker Details</button>
-  <form action="/sneakers/{{sneaker._id}}/update" method="post" id="edit-form" hidden="true" enctype="multipart/form-data">
+  <form action="/sneakers/{{sneaker._id}}/update" method="POST" id="edit-form" style="display: none" enctype="multipart/form-data">
     {{!-- enctype needs to be here if there is anything with type="file" in the form --}}
     <label for="">Name:</label>
     <input type="text" name="name" id="" value="{{sneaker.name}}">
@@ -65,6 +65,7 @@ The 'isOwner' is a boolean from sneaker-route if there is a user in session --}}
     <button type="submit">Delete</button>
   </form>
 {{/if}}
+<br>
 
 <a href="/sneakers">Go Back to All Sneakers</a><br>
 
@@ -73,20 +74,24 @@ The 'isOwner' is a boolean from sneaker-route if there is a user in session --}}
 {{!-- USER CANNOT LEAVE REVIEWS ON THEIR OWN PROPERTIES --}}
 {{!-- this means that only if the user IS NOT the owner, this form will be shown --}}
 {{#unless sneaker.isOwner}}
-  <h2>Add a Comment About the Sneaker:</h2>
+  <h4>Add a Comment About the Sneaker:</h4>
   <form action="/sneakers/{{sneaker._id}}/add-review" method="POST">
-    <textarea name="comment" id="" cols="50" rows="10"></textarea>
+    <textarea name="comment" id="" cols="45" rows="5"></textarea><br>
     <button type="submit">Add Comment</button>
   </form>
 {{/unless}}
 
 {{!-- if there are reviews, display them, otherwise, don't display them --}}
 {{#if sneaker.reviews}}
-  <h3>Comments:</h3>
+  <h4>Comments:</h4>
   {{#each sneaker.reviews}}
     <p><b>{{ this.user.fullName }} commented: </b> {{ this.comment }} </p>
     {{#if this.canBeChanged}}
-      <a href="/reviews/{{this._id}}"> Edit Comment </a>
+      <button onclick="toggleElement('{{this.editId}}-edit')"> Edit Comment </button>
+      <form action="/reviews/{{this._id}}/update" id="{{this.editId}}-edit" style="display: none" method="POST">
+        <textarea name="comment" id="" cols="50" rows="10" > {{ this.comment }} </textarea><br>
+      <button type="submit">Save Comment</button>
+      </form>
       <form action="/reviews/{{this._id}}" method="POST">
         <button type="submit"> Delete Comment </button>
       </form>

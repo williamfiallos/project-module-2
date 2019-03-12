@@ -13,6 +13,11 @@ body {
   align-items: center;
   background-color: lightgrey; }
 
+.container {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-gap: 1em; }
+
 .container > div {
   border: 1px solid black;
   border-radius: 10px;

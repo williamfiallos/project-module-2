@@ -102,7 +102,8 @@ router.get('/sneakers/:sneakerId', isLoggedIn, (req, res, next) => {
         // and if that's the case, create new property in the each review that satisfies criteria
         // and use this property when looping through the array of reviews in hbs file to make sure
         // that logged in user can only edit and delete the reviews they created
-          singleReview.canBeChanged = true;
+          singleReview.canBeChanged = true; 
+          singleReview.editId = singleReview._id.toString();
         }
         return singleReview;
       }))
@@ -162,7 +163,7 @@ router.post('/sneakers/:id/update',fileUploader.single('imageURL'), (req, res, n
 
   Sneaker.findByIdAndUpdate(req.params.id, updatedSneaker)
   .then( theUpdatedSneaker => {
-    // console.log("Is this updated: ", theUpdatedSneaker);
+    // console.log("This is updated: ", theUpdatedSneaker);
     res.redirect(`/sneakers/${theUpdatedSneaker._id}`);
     // res.redirect('/sneakers/theUpdatedSneaker._id'); <=wrong way of writing the above
   } )
@@ -192,35 +193,3 @@ function isLoggedIn(req, res, next){
 
 
 module.exports = router;
-
-// // get the details of a specific room
-// router.get('/rooms/:roomId',isLoggedIn, (req, res, next) => {
-
-//   // here we need to populate owner field but as well
-//   Room.findById(req.params.roomId).populate('owner')
-//   // 🎯🎯🎯 we need to populate 'reviews' field and the 'user' field that's inside the reviews 🎯🎯🎯
-//   .populate({path: 'reviews', populate: {path:'user'}})
-//   .then(foundRoom => {
-
-//     // console.log(' == = = = == = == = ', foundRoom);
-//     if(foundRoom.owner.equals(req.user._id)){
-//       foundRoom.isOwner = true;
-//     }
-    
-//     // go through all the reviews and check which ones are created by currently logged in user
-//     Promise.all(foundRoom.reviews.filter(singleReview => {                      //          |
-//       if(singleReview.user._id.equals(req.user._id)){   // <--------------------------------|
-//         // and if that's the case, create new property in the each review that satisfies criteria
-//         // and use this property when looping through the array of reviews in hbs file to make sure
-//         // that logged in user can only edit and delete the reviews they created 
-//         singleReview.canBeChanged = true;
-//       }
-//       return singleReview;
-//     }))
-//     .then(() => {
-//       res.render('room-pages/room-details', { room: foundRoom } )
-//     })
-//     .catch( err => next(err) )
-//   })
-//   .catch( err => next(err) )
-// })
