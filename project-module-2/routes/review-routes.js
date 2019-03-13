@@ -33,17 +33,17 @@ router.post('/sneakers/:sneakerId/add-review', (req, res, next) => {
 })
 
 ////////////////////// UPDATE REVIEW //////////////////////
-router.post('/reviews/:id/update', (req, res, next) => {
+router.post('/sneakers/:id/update', (req, res, next) => {
   // console.log(req.body);
 
   Review.findByIdAndUpdate(req.params.id, req.body)
-  .then( theUpdatedReview => {
+  .then( foundSneaker => {
     // console.log("This is updated: ", theUpdatedReview);
-    res.redirect(`/reviews/${theUpdatedReview._id}`);
+    res.redirect(`/sneakers/${foundSneaker._id}`);
 
 
 
-    
+
     // res.redirect('/reviews/theUpdatedReview._id'); <=wrong way of writing the above
   } )
   .catch(err => console.log('Error while saving the updates in the db: ', err));
