@@ -24,7 +24,11 @@ router.post('/sneakers/leak-sneaker', fileUploader.single('imageURL'), (req, res
     theDate.pop()
     theDate.push(newDate.toString())
     // theDate.join('-')
+    // console.log(">>>>>>>>>>>>>>>>>>>> ", theDate);
+    
     // console.log(">>>>>>", theDate.join('-'), newDate.toString())
+
+    
   
   const { name, brand, designer, price, description } = req.body; // <= this is ES6 destructuring
   Sneaker.create({
@@ -89,6 +93,9 @@ router.get('/sneakers/:sneakerId', isLoggedIn, (req, res, next) => {
   .populate({path: 'reviews', populate: {path: 'user'}})
   .then(theSneaker => { 
       // if there's a user in a session:
+      // console.log("--------------------------", req.user);
+      // console.log("==========================", theSneaker);
+      
       if(req.user){
         if(theSneaker.owner.equals(req.user._id)){
           theSneaker.isOwner = true;

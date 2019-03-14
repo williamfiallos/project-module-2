@@ -11,6 +11,8 @@ body {
 .card {
     border: 1px solid black;
     // border-radius: 10px;
+    height: 300px;
+    padding: 5px;
 }
 
 
@@ -33,6 +35,14 @@ body {
   border-radius: 10px;
   background: white;
   padding: 1em;
+}
+
+.panel {
+  height: 320px;
+}
+
+.theSneakerList {
+  padding: 0 32px;
 }
 
 
