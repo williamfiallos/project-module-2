@@ -1,19 +1,30 @@
-<h1>Create an Account</h1>
+<header class="header">
+    <div id="h1">
+      <h1><img class="img" src="https://66.media.tumblr.com/d2f3742a109485a021433d3b98e36b08/tumblr_pcrevaQoMw1uw920co1_1280.png" alt="Off-White Air Jordan 1 OG"></h1>
+    </div>
+    <div id="h2">
+      <h2>CREATE ACCOUNT</h2>
+    </div>  
+    <form class="slot-form-container" action="/signup" method="POST">
 
+      <div class="slot-form-container">
+        {{!-- <label for="">Full Name:</label> --}}
+        <input type="text" name="fullName" placeholder="Enter your full name" id=""/> {{!-- "required" requires user to fill the field --}}
+      </div>
+      <div class="slot-form-container">
+        {{!-- <label for="">Email</label> --}}
+        <input type="text" name="email" placeholder="Enter your email address" id=""/> {{!-- "required" requires user to fill the field --}}
+      </div>
+      <div class="slot-form-container">
+        {{!-- <label for="">Password</label> --}}
+        <input type="password" name="password" placeholder="Enter your password" id=""/> 
+      </div>
+      <div class="slot-form-container button">
+        <button type="submit">Create account</button>
+      </div>
 
-<form action="/signup" method="POST">
+    </form>
 
-  <label for="">Full Name:</label>
-  <input type="text" name="fullName" > {{!-- "required" requires user to fill the field --}}
-  <br>
-  <label for="">Email:</label>
-  <input type="text" name="email" id="" >
-  <br>
-  <label for="">Password:</label>
-  <input type="password" name="password" id="" > 
-  <br>
-  <button type="submit">Create Account</button>
-
-</form>
-
-{{> flashMessage }}
+    {{> flashMessage }}
+    
+  </header>
