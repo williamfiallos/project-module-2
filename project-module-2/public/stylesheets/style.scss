@@ -87,17 +87,17 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-  font-size: 9em;
+  font-size: 5em;
   text-align: center;
   text-transform: uppercase;
 }
 
 h2 {
   color: #fff;
-  font-size: 5em;
-  line-height: 4em;
+  font-size: 9em;
+  line-height: 2em;
   text-align: center;
-  text-shadow: #020819 6px -2px 6px;
+  text-shadow: #020819 8px -20px 9px;
   text-transform: uppercase;
 }
 
@@ -175,7 +175,7 @@ h5 {
   float: left;
   list-style-type: none;
   text-align: center;
-  width: 33%;
+  width: 25%;
 }
 
 .nav-bar-item {
@@ -185,7 +185,7 @@ h5 {
 }
 
 .header {
-  background: url(https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/ironhack-skydive-background.jpg) 0 0 no-repeat;
+  background: url(http://www.superiorwallpapers.com/images/lthumbs/2015-06/9786_Footprints-in-the-sand-hills-in-desert.jpg) 0 0 no-repeat;
   background-size: cover;
   height: 650px;
   padding-top: 50px;
@@ -195,8 +195,10 @@ h5 {
 .quote {
   bottom: 15vh;
   font-size: 2.5em;
+  color: white;
   position: absolute;
   left: 10%;
+  right: 40%;
 }
 
 #general-information .text {
@@ -220,6 +222,11 @@ h5 {
 
 .service-box .img {
   width: 125px;
+}
+
+.img {
+  width: 200px;
+  text-align: center
 }
 
 #team .section-text {
