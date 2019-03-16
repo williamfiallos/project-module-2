@@ -1,25 +1,25 @@
-
+<header class="header">
+    <div id="h2">
+      <h2>{{sneaker.name}}</h2>
+    </div>  
+      <div>
+        <h1>
+          {{#if sneaker.imageURL}}
+            <img class="image-details" src="{{sneaker.imageURL}}" alt="sneaker image" width="300">
+          {{else}}
+            <p>The sneaker doesn't have an image.</p>
+          {{/if}}
+        </h1>
+      </div>
+    <aside class="quote">
+      <em>{{sneaker.description}}</em><br>
+      <small>Leaker: {{sneaker.owner.fullName}} </small>
+    </aside>
 {{!-- Note: here it uses 'sneaker.' and not 'this.' since this is already specifying which
 sneaker to reference. Read lines 13-16 to see where 'sneaker' came from. --}}
-<h1>{{sneaker.name}}</h1>
+
 <h5>Release Date: {{sneaker.date}} </h5>
-<div class="">
-  <div class="container">
-    <div>
-      {{#if sneaker.imageURL}}
-      <img src="{{sneaker.imageURL}}" alt="sneaker image" width="300">
-      {{else}}
-      <p>The sneaker doesn't have an image.</p>
-      {{/if}}
-    </div>
-  {{!-- <div class="container"> --}}
-    <div>
-      <p>{{sneaker.description}}</p>
-      <p>Sneaker Leaker: {{sneaker.owner.fullName}} </p>
-    </div>
-  </div>
-  {{!-- </div> --}}
-</div>
+</header>
 
 
 {{!-- the following code came from sneaker-list.hbs; 

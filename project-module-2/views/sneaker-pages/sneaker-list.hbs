@@ -1,69 +1,46 @@
 <ul class="theSneakerList">
   {{!-- Note: 'this.' is calling the sneakers from the DB --}}
-  
-  <div class="panel-container">
-    {{#each sneakersFromDB}}
-      <div class="panel">
-        <div class="card" style="width: 19rem;">
-        <img class="card-img-top" src="{{this.imageURL}}" alt="Card image cap">
-        <div class="card-body">
-          <h5><a href="/sneakers/{{this._id}}" class="card-title"> {{this.name}} </a></h5>
+  <div id="structure">
+    <div class="container">
+      {{!-- <h3>Sneakers at Lost Soles</h3> --}}
+      {{#each sneakersFromDB}}
+        <article class="service-box col">
+          <img class="img" src="{{this.imageURL}}" alt="Sneaker image">
+          <h4><a href="/sneakers/{{this._id}}" class="card-title"> {{this.name}} </a></h4>
           {{#if ../currentUser}}
-            <p class="card-text">Release Date: {{this.date}}</p>
+            <p>Release Date: {{this.date}}</p>
           {{else}}
             <p><b>Login to view release date!</b></p>
           {{/if}}
-          
-          {{!-- if isOwner then show Delete button, if not Owner then don't show it --}}
+            {{!-- if isOwner then show Delete button, if not Owner then don't show it --}}
           {{#if this.isOwner}}
             <form action="/sneakers/{{this._id}}/delete" method="POST">
               <button type="submit">Delete</button>
             </form>
-          {{!-- {{else}}
-            <p><b>You must be logged in to view the release dates!!!</b></p> --}}
           {{/if}}
-        </div>
-        </div>
-      </div>
-    {{/each}}
+        </article>
+      {{/each}}
+    </div>
   </div>
 </ul>
-
-<section>
-    <div id="structure">
-    <div class="container">
-      <h3>How do we structure the day?</h3>
-      <ol>
-        <li>
-          <article class="service-box col">
-            <img src="https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/ironskydive-training.png" alt="Training Logo">
-            <h4>Training</h4>
-            <p>We teach all the necessary things to jump from the plane without any kind of problem.</p>
-          </article>
-        </li>
-        <li>
-          <article class="service-box col">
-            <img src="https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/ironskydive-get-ready.png" alt="Get Ready logo">
-            <h4>Get ready</h4>
-            <p>You are already prepared, you just need the suit and a parachute. All sizes available.</p>
-          </article>
-        </li>
-        <li>
-          <article class="service-box col">
-            <img src="https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/ironskydive-fly.png" alt="Fly Logo">
-            <h4>Fly</h4>
-            <p>You are ready, and the plane is waiting for us in the hangar. Let's fly!</p>
-          </article>
-        </li>
-        <li>
-          <article class="service-box col">
-            <img src="https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/ironskydive-jump.png" alt="Jump Logo">
-            <h4>Jump!</h4>
-            <p>You have done the most complicated. Just one step left...jump!</p>
-        </article>
-        <div class="clearfix"></div>
-        </li>
-      </ol>
-    </div>
-    </div>
-  </section>
+        <div class="panel">
+          <div class="card" style="width: 19rem;">
+            {{!-- <img class="card-img-top" src="{{this.imageURL}}" alt="Card image cap"> --}}
+            <div class="card-body">
+              <h5><a href="/sneakers/{{this._id}}" class="card-title"> {{this.name}} </a></h5>
+              {{#if ../currentUser}}
+                <p class="card-text">Release Date: {{this.date}}</p>
+              {{else}}
+                <p><b>Login to view release date!</b></p>
+              {{/if}}
+              
+              {{#if this.isOwner}}
+                <form action="/sneakers/{{this._id}}/delete" method="POST">
+                  <button type="submit">Delete</button>
+                </form>
+              {{!-- {{else}}
+                <p><b>You must be logged in to view the release dates!!!</b></p> --}}
+              {{/if}}
+            </div>
+          </div>
+        </div>

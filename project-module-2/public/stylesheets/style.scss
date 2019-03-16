@@ -175,7 +175,7 @@ h5 {
   float: left;
   list-style-type: none;
   text-align: center;
-  width: 25%;
+  width: 20%;
 }
 
 .nav-bar-item {
@@ -193,6 +193,15 @@ h5 {
 }
 
 .quote {
+  bottom: 15vh;
+  font-size: 1.5em;
+  color: white;
+  position: absolute;
+  left: 55%;
+  right: 10%;
+}
+
+.quote-details {
   bottom: 15vh;
   font-size: 1.5em;
   color: white;
@@ -221,12 +230,17 @@ h5 {
 }
 
 .service-box .img {
-  width: 125px;
+  width: 200px;
 }
 
 .img {
   width: 200px;
   text-align: center
+}
+
+.image-details {
+  width: 200px;
+  left: 10%;
 }
 
 #team .section-text {

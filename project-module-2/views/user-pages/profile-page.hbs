@@ -1,21 +1,40 @@
-<h1>{{ currentUser.fullName }}'s Lost Soles sneaker leaks</h1>
+<h3>{{ currentUser.fullName }}'s Sneakers</h3>
 
 {{!-- Note: must get sneakrs from DB; go to user-routes and do Sneaker.find(object=> {owner:req.user._id}).
 I also have to create a variable called Sneaker and require sneaker-model to be able to find the Sneaker in sneakersFromDB --}}
-<div class="panel-container">
-  {{#each sneakersFromDB}}
-    <div class="panel">
-      <div class="card" style="width: 19rem;">
-        <img class="card-img-top" src="{{this.imageURL}}" alt="Card image cap">
-        <div class="card-body">
-          <h5><a href="/sneakers/{{this._id}}" class="card-title"> {{this.name}} </a></h5>
-          {{!-- <h5 class="card-title" >{{this.name}}</h5> --}}
-          <p class="card-text">Release Date: {{this.date}}</p>
+<div id="structure">
+  <div class="container">
+    {{#each sneakersFromDB}}
+      <article class="service-box col">
+          <img class="img" src="{{this.imageURL}}" alt="Sneaker image">
+          <h4><a href="/sneakers/{{this._id}}" class="card-title"> {{this.name}} </a></h4>
+          <p>Release Date: {{this.date}}</p>
           <form action="/sneakers/{{this._id}}/delete" method="POST">
             <button type="submit">Delete</button>
           </form>
-        </div>
-      </div>
-    </div>
-  {{/each}}
+      </article>
+    {{/each}}
+  </div>
 </div>
+
+        <div class="panel">
+          <div class="card" style="width: 19rem;">
+            {{!-- <img class="card-img-top" src="{{this.imageURL}}" alt="Card image cap"> --}}
+            <div class="card-body">
+              <h5><a href="/sneakers/{{this._id}}" class="card-title"> {{this.name}} </a></h5>
+              {{#if ../currentUser}}
+                <p class="card-text">Release Date: {{this.date}}</p>
+              {{else}}
+                <p><b>Login to view release date!</b></p>
+              {{/if}}
+              
+              {{#if this.isOwner}}
+                <form action="/sneakers/{{this._id}}/delete" method="POST">
+                  <button type="submit">Delete</button>
+                </form>
+              {{!-- {{else}}
+                <p><b>You must be logged in to view the release dates!!!</b></p> --}}
+              {{/if}}
+            </div>
+          </div>
+        </div>
