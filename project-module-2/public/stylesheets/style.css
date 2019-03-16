@@ -97,7 +97,7 @@ h5 {
 .header {
   background: url(http://www.superiorwallpapers.com/images/lthumbs/2015-06/9786_Footprints-in-the-sand-hills-in-desert.jpg) 0 0 no-repeat;
   background-size: cover;
-  height: 650px;
+  height: fit-content;
   padding-top: 50px;
   position: relative; }
 
@@ -113,9 +113,8 @@ h5 {
   bottom: 15vh;
   font-size: 1.5em;
   color: white;
-  position: absolute;
-  left: 20%;
-  right: 20%; }
+  margin-left: 15%;
+  margin-right: 15%; }
 
 #general-information .text {
   font-size: 2em;

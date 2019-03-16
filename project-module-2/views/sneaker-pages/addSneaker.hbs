@@ -2,30 +2,53 @@
 {{!-- NOTE: if in the "form" you want to upload any kind of files (images, music, etc.) you need 
 to add enctype="multipart/form-data" --}}
 
-<form action="/sneakers/leak-sneaker" method="POST" enctype="multipart/form-data">
-  
-  <label for="">Name:</label>
-  <input type="text" name="name" id="">
-  <br>
-  <label for="">Brand:</label>
-  <input type="text" name="brand" id="">
-  <br>
-  <label for="">Designer:</label>
-  <input type="text" name="designer" id="">
-  <br>
-  <label for="">Release Date:</label>
-  <input type="date" name="date" id=""> {{!-- DATE IS NOT RECORDING PROPERLY; IT RECORDS ON A DIFFERENT TIME ZONE --}}
-  <br>
-  <label for="">Price: $</label>
-  <input type="number" name="price" id="">
-  <br>
-  <label for="">Description:</label>
-  <textarea name="description" id="" cols="30" rows="10"></textarea>
-  <br>
-  <label for="">Upload Sneaker Image:</label>
-  <input type="file" name="imageURL" id=""> {{!-- type="file" => when adding images or any other files --}}
-  <br>
-  <br>
-  <button type="submit">Leak</button>
 
-</form>
+<header class="header">
+    
+    <div id="h1">
+      <h1><img class="img" src="https://66.media.tumblr.com/d2f3742a109485a021433d3b98e36b08/tumblr_pcrevaQoMw1uw920co1_1280.png" alt="Off-White Air Jordan 1 OG"></h1>
+    </div>
+    
+    <div id="h2">
+      <h2>LEAK A SNEAKER</h2>
+    </div>  
+    
+    <form class="slot-form-container" action="/sneakers/leak-sneaker" method="POST" enctype="multipart/form-data">
+      {{!-- <div class="slot-form-container"> --}}
+      <div>
+        {{!-- <label for="">Name:</label> --}}
+        <input type="text" name="name" placeholder="Enter sneaker name" id=""/> {{!-- "required" requires user to fill the field --}}
+      </div>
+      <div>
+        {{!-- <label for="">Brand:</label> --}}
+        <input type="text" name="brand" placeholder="Enter sneaker brand" id="">
+      </div>
+      <div>
+        {{!-- <label for="">Designer:</label> --}}
+        <input type="text" name="designer" placeholder="Enter sneaker designer" id="">
+      </div>
+      <div>
+        {{!-- <label for="">Release Date:</label> --}}
+        <input type="date" name="date" placeholder="Enter sneaker release date" id=""> {{!-- DATE IS NOT RECORDING PROPERLY; IT RECORDS ON A DIFFERENT TIME ZONE --}}
+      </div>
+      <div>
+        {{!-- <label for="">Price: $</label> --}}
+        <input type="number" name="price" placeholder="Enter sneaker price" id="">
+      </div>
+      <div>
+        {{!-- <label for="">Description:</label> --}}
+        <textarea name="description" placeholder="Enter sneaker description" id="" cols="87" rows="10"></textarea>
+      </div>
+      <div class="slot-form-container">
+        {{!-- <label for="">Upload Sneaker Image:</label> --}}
+        <input type="file" placeholder="Enter sneaker image" name="imageURL" id=""> {{!-- type="file" => when adding images or any other files --}}
+      </div>
+      <div class="slot-form-container button">
+        <button type="submit">Leak Sneaker</button>
+      </div>
+      <br>
+    </form>
+
+</header>
+
+
