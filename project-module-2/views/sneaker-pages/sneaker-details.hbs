@@ -11,7 +11,7 @@
           {{/if}}
         </h1>
       </div>
-    <aside class="quote">
+    <aside class="quote-details">
       <em>{{sneaker.description}}</em><br>
       <small>Leaker: {{sneaker.owner.fullName}} </small>
     </aside>
@@ -74,27 +74,30 @@ The 'isOwner' is a boolean from sneaker-route if there is a user in session --}}
 {{!-- USER CANNOT LEAVE REVIEWS ON THEIR OWN PROPERTIES --}}
 {{!-- this means that only if the user IS NOT the owner, this form will be shown --}}
 {{#unless sneaker.isOwner}}
-  <h4>Add a Comment About the Sneaker:</h4>
-  <form action="/sneakers/{{sneaker._id}}/add-review" method="POST">
+  <h3>Add a Comment About the Sneaker:</h3>
+  <form class="slot-form-container" action="/sneakers/{{sneaker._id}}/add-review" method="POST">
     <textarea name="comment" id="" cols="45" rows="5"></textarea><br>
     <button type="submit">Add Comment</button>
   </form>
+  <br>
 {{/unless}}
 
 {{!-- if there are reviews, display them, otherwise, don't display them --}}
 {{#if sneaker.reviews}}
-  <h4>Comments:</h4>
-  {{#each sneaker.reviews}}
-    <p><b>{{ this.user.fullName }} commented: </b> {{ this.comment }} </p>
-    {{#if this.canBeChanged}}
-      <button onclick="toggleElement('{{this.editId}}-edit')"> Edit Comment </button>
-      <form action="/reviews/{{this._id}}/update" id="{{this.editId}}-edit" style="display: none" method="POST">
-        <textarea name="comment" id="" cols="50" rows="10" > {{ this.comment }} </textarea><br>
-      <button type="submit">Save Comment</button>
-      </form>
-      <form action="/reviews/{{this._id}}" method="POST">
-        <button type="submit"> Delete Comment </button>
-      </form>
-    {{/if}}
-  {{/each}}
+  <h3>Reviews & Comments:</h3>
+  <div class="container">
+    {{#each sneaker.reviews}}
+      <p><b>{{ this.user.fullName }} commented: </b> {{ this.comment }} </p>
+      {{#if this.canBeChanged}}
+        <button onclick="toggleElement('{{this.editId}}-edit')"> Edit Comment </button>
+        <form action="/reviews/{{this._id}}/update" id="{{this.editId}}-edit" style="display: none" method="POST">
+          <textarea name="comment" id="" cols="50" rows="10" > {{ this.comment }} </textarea><br>
+        <button type="submit">Save Comment</button>
+        </form>
+        <form action="/reviews/{{this._id}}" method="POST">
+          <button type="submit"> Delete Comment </button>
+        </form>
+      {{/if}}
+    {{/each}}
+  </div>
 {{/if}}
