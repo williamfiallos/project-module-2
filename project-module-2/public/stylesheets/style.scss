@@ -175,6 +175,13 @@ h5 {
   float: left;
   list-style-type: none;
   text-align: center;
+  width: 25%;
+}
+
+.nav-bar-li-user {
+  float: left;
+  list-style-type: none;
+  text-align: center;
   width: 20%;
 }
 
@@ -184,7 +191,25 @@ h5 {
   text-decoration: none;
 }
 
+.logout {
+  background:none!important;
+  color:inherit;
+  border:none; 
+  padding:0!important;
+  font: inherit;
+  /*border is optional*/
+  cursor: pointer;
+}
+
 .header {
+  background: url(http://www.superiorwallpapers.com/images/lthumbs/2015-06/9786_Footprints-in-the-sand-hills-in-desert.jpg) 0 0 no-repeat;
+  background-size: cover;
+  height: fit-content;
+  padding-top: 50px;
+  position: relative;
+}
+
+.header-two {
   background: url(http://www.superiorwallpapers.com/images/lthumbs/2015-06/9786_Footprints-in-the-sand-hills-in-desert.jpg) 0 0 no-repeat;
   background-size: cover;
   height: fit-content;

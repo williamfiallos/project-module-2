@@ -14,19 +14,19 @@
   <nav class="nav-bar">
     {{#if currentUser}} 
       <ul class='nav-bar-ul'>
-        <li class='nav-bar-li'><a class='nav-bar-item' href="/">Home</a></li>
-        <li class='nav-bar-li'><a class='nav-bar-item' href='/private'>My Leaks</a></li>
-        <li class='nav-bar-li'><a class='nav-bar-item' href='/sneakers'>Sneakers</a></li>
-        <li class='nav-bar-li'><a class='nav-bar-item' href='/sneakers/add'>Leak a Sneaker</a></li>
-        {{!-- <li class='nav-bar-li'><a class="nav-bar-item" href="/login">Logout</a></li> --}}
-        <li class='nav-bar-li'><form class="nav-bar-item" action="/logout" method="post"><button type="submit">Logout</button></form></li>
+        <li class='nav-bar-li-user'><a class='nav-bar-item' href="/">Home</a></li>
+        <li class='nav-bar-li-user'><a class='nav-bar-item' href='/sneakers'>Sneakers</a></li>
+        <li class='nav-bar-li-user'><a class='nav-bar-item' href='/sneakers/add'>Leak a Sneaker</a></li>
+        <li class='nav-bar-li-user'><a class='nav-bar-item' href='/private'>My Leaks</a></li>
+        {{!-- <li class='nav-bar-li-user'><a class="nav-bar-item" href="/login">Logout</a></li> --}}
+        <li class='nav-bar-li-user'><form class="nav-bar-item" action="/logout" method="post"><button class="nav-bar-item logout" type="submit">Logout</button></form></li>
       </ul>
     {{else}}
       <ul class="nav-bar-ul">
         <li class='nav-bar-li'><a class='nav-bar-item' href="/">Home</a></li>
-        <li class='nav-bar-li'><a class='nav-bar-item' href="/login">Log In</a></li>
-        <li class='nav-bar-li'><a class='nav-bar-item' href="/signup">Create Account</a></li>
         <li class='nav-bar-li'><a class='nav-bar-item' href="/sneakers">Sneakers</a></li>
+        <li class='nav-bar-li'><a class='nav-bar-item' href="/signup">Create Account</a></li>
+        <li class='nav-bar-li'><a class='nav-bar-item' href="/login">Log In</a></li>
       </ul>
     {{/if}}
 

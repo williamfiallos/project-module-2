@@ -1,12 +1,12 @@
-<ul class="theSneakerList">
-  {{!-- Note: 'this.' is calling the sneakers from the DB --}}
-  <div id="structure">
-    <div class="container">
-      {{!-- <h3>Sneakers at Lost Soles</h3> --}}
-      {{#each sneakersFromDB}}
-        <article class="service-box col">
-          <img class="img" src="{{this.imageURL}}" alt="Sneaker image">
-          <h4><a href="/sneakers/{{this._id}}" class="card-title"> {{this.name}} </a></h4>
+{{!-- Note: 'this.' is calling the sneakers from the DB --}}
+<div id="structure" class="container">
+  
+    {{!-- <h3>Sneakers at Lost Soles</h3> --}}
+    {{#each sneakersFromDB}}
+      <article class="service-box col">
+        <img class="img" src="{{this.imageURL}}" alt="Sneaker image">
+        <h4><a href="/sneakers/{{this._id}}"> {{this.name}} </a></h4>
+        <div class="card">
           {{#if ../currentUser}}
             <p>Release Date: {{this.date}}</p>
           {{else}}
@@ -18,29 +18,13 @@
               <button type="submit">Delete</button>
             </form>
           {{/if}}
-        </article>
-      {{/each}}
-    </div>
-  </div>
-</ul>
-        <div class="panel">
-          <div class="card" style="width: 19rem;">
-            {{!-- <img class="card-img-top" src="{{this.imageURL}}" alt="Card image cap"> --}}
-            <div class="card-body">
-              <h5><a href="/sneakers/{{this._id}}" class="card-title"> {{this.name}} </a></h5>
-              {{#if ../currentUser}}
-                <p class="card-text">Release Date: {{this.date}}</p>
-              {{else}}
-                <p><b>Login to view release date!</b></p>
-              {{/if}}
-              
-              {{#if this.isOwner}}
-                <form action="/sneakers/{{this._id}}/delete" method="POST">
-                  <button type="submit">Delete</button>
-                </form>
-              {{!-- {{else}}
-                <p><b>You must be logged in to view the release dates!!!</b></p> --}}
-              {{/if}}
-            </div>
-          </div>
         </div>
+      </article>
+    {{/each}}
+
+</div>
+
+{{!-- HELP BELOW!!!! --}}
+<div class="card" style="width: 19rem;">
+  <p>.</p>
+</div>
